@@ -50,4 +50,14 @@ def include_new_book():
     return jsonify(books)
 
 
+#Delete existent book
+@app.route('/books/<int:id>', methods=['DELETE'])
+def delete_book(id):
+    deleted_book = request.get_json()
+    for i, book in enumerate(books):
+        if book.get('id') == id:
+            del books[i]
+            
+    return jsonify(books[i])
+
 app.run(port=8000, host='localhost', debug=True)
