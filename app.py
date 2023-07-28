@@ -20,8 +20,8 @@ books = [{
 ]
 
 #CRUD with an API
-#Get book by ID
 
+#Get book by ID
 @app.route('/books', methods=['GET'])
 def get_book():
     return jsonify(books)
@@ -33,7 +33,6 @@ def obtain_book(id):
           return jsonify(book)
        
 #Update book by ID
-       
 @app.route('/books/<int:id>', methods=['PUT'])
 def edit_book_id(id):
     alter_book = request.get_json()  #Request for Server
@@ -41,5 +40,14 @@ def edit_book_id(id):
         if book.get('id') == id:
             books[i].update(alter_book)
             return jsonify(books[i])
+
+#Create new book
+@app.route('/books',methods=['POST'])
+def include_new_book():
+    new_book = request.get_json()
+    books.append(new_book)
+
+    return jsonify(books)
+
 
 app.run(port=8000, host='localhost', debug=True)
