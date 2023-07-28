@@ -31,5 +31,15 @@ def obtain_book(id):
     for book in books:
        if book.get('id') == id:
           return jsonify(book)
+       
+#Update book by ID
+       
+@app.route('/books/<int:id>', methods=['PUT'])
+def edit_book_id(id):
+    alter_book = request.get_json()  #Request for Server
+    for i, book in enumerate(books): #Returning ID and Book-name with the enumerate function;
+        if book.get('id') == id:
+            books[i].update(alter_book)
+            return jsonify(books[i])
 
 app.run(port=8000, host='localhost', debug=True)
